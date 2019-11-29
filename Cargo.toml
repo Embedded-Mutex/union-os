@@ -1,0 +1,54 @@
+[package]
+name = "union-os"
+version = "0.1.0"
+license = "MIT"
+authors = ["Stefan Lankes <slankes@eonerc.rwth-aachen.de>"]
+
+[dependencies]
+bitflags = "1.0"
+spin = "0.5"
+
+#[dependencies.lazy_static]
+#version = "1.2"
+#features = ["spin_no_std"]
+
+[target.'cfg(target_arch = "x86_64")'.dependencies.x86]
+git = "https://github.com/hermitcore/rust-x86.git"
+branch = "hermit"
+default-features = false
+
+[dependencies.goblin]
+version = "0.0.19"
+default-features = false
+features = ["elf64", "elf32", "endian_fd"]
+
+#[dependencies.scroll]
+#version = "0.9"
+#default-features = false
+
+[dependencies.num-traits]
+version = "0.2"
+default-features = false
+
+[package.metadata.cargo-xbuild]
+memcpy = true
+
+# The development profile, used for `cargo build`.
+[profile.dev]
+opt-level = 1      # controls the `--opt-level` the compiler builds with
+debug = true       # controls whether the compiler passes `-C debuginfo`
+                   # a value of `true` is equivalent to `2`
+rpath = false      # controls whether the compiler passes `-C rpath`
+lto = false        # controls `-C lto` for binaries and staticlibs
+debug-assertions = true # controls whether debug assertions are enabled
+codegen-units = 1  # controls whether the compiler passes `-C codegen-units`
+                   # `codegen-units` is ignored when `lto = true`
+
+# The release profile, used for `cargo build --release`.
+[profile.release]
+opt-level = 3
+debug = false
+rpath = false
+lto = true
+debug-assertions = false
+codegen-units = 1
