@@ -2,7 +2,7 @@
 name = "union-os"
 version = "0.1.0"
 license = "MIT"
-authors = ["Stefan Lankes <slankes@eonerc.rwth-aachen.de>"]
+authors = ["Friedrich Doku <friedrichdoku@gmail.com>"]
 
 [dependencies]
 bitflags = "1.0"
